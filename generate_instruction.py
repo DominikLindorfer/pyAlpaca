@@ -110,7 +110,7 @@ def find_word_in_string(w, s):
 def generate_instruction_following_data(
     output_dir="./",
     seed_tasks_path="./seed_tasks.jsonl",
-    num_instructions_to_generate=100,
+    num_instructions_to_generate=20000,
     model_name="text-davinci-003",
     num_prompt_instructions=3,
     request_batch_size=5,
@@ -164,6 +164,7 @@ def generate_instruction_following_data(
             stop=["\n20", "20.", "20."],
         )
         request_start = time.time()
+        print("Calling openai...")
         results = utils.openai_completion(
             prompts=batch_inputs,
             model_name=model_name,
@@ -172,7 +173,7 @@ def generate_instruction_following_data(
             logit_bias={"50256": -100},  # prevent the <|endoftext|> token from being generated
         )
         request_duration = time.time() - request_start
-
+        print(f'request took - {request_duration}')
         process_start = time.time()
         instruction_data = []
         for result in results:

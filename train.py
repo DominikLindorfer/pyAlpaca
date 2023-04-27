@@ -1,4 +1,3 @@
-#    Copyright 2023 Rohan Taori, Ishaan Gulrajani, Tianyi Zhang, Yann Dubois, Xuechen Li
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -15,19 +14,44 @@
 import copy
 import logging
 from dataclasses import dataclass, field
-from typing import Dict, Optional, Sequence
+from typing import Optional, Dict, Sequence
 
 import torch
 import transformers
-import utils
 from torch.utils.data import Dataset
 from transformers import Trainer
+
+#import utils
+import json
+import io
+
+def _make_r_io_base(f, mode: str):
+    if not isinstance(f, io.IOBase):
+        f = open(f, mode=mode)
+    return 
+
+
+#def jload(f, mode="r"):
+#    """Load a .json file into a dictionary."""
+#    #f = _make_r_io_base(f, mode)
+#    f = open(f)
+#    jdict = json.loads(f)
+#    #f.close()
+#    return jdict
+
+def jload(filename, mode="r"):
+    """Load a .json file into a dictionary."""
+    #f = _make_r_io_base(f, mode)
+    f = open(filename)
+    jdict = json.load(f)
+    f.close()
+    return jdict
 
 IGNORE_INDEX = -100
 DEFAULT_PAD_TOKEN = "[PAD]"
 DEFAULT_EOS_TOKEN = "</s>"
-DEFAULT_BOS_TOKEN = "<s>"
-DEFAULT_UNK_TOKEN = "<unk>"
+DEFAULT_BOS_TOKEN = "</s>"
+DEFAULT_UNK_TOKEN = "</s>"
 PROMPT_DICT = {
     "prompt_input": (
         "Below is an instruction that describes a task, paired with an input that provides further context. "
@@ -60,6 +84,15 @@ class TrainingArguments(transformers.TrainingArguments):
         default=512,
         metadata={"help": "Maximum sequence length. Sequences will be right padded (and possibly truncated)."},
     )
+
+
+def safe_save_model_for_hf_trainer(trainer: transformers.Trainer, output_dir: str):
+    """Collects the state dict and dump to disk."""
+    state_dict = trainer.model.state_dict()
+    if trainer.args.should_save:
+        cpu_state_dict = {key: value.cpu() for key, value in state_dict.items()}
+        del state_dict
+        trainer._save(output_dir, state_dict=cpu_state_dict)  # noqa
 
 
 def smart_tokenizer_and_embedding_resize(
@@ -130,7 +163,10 @@ class SupervisedDataset(Dataset):
     def __init__(self, data_path: str, tokenizer: transformers.PreTrainedTokenizer):
         super(SupervisedDataset, self).__init__()
         logging.warning("Loading data...")
-        list_data_dict = utils.jload(data_path)
+        print(data_path)
+        list_data_dict = jload(data_path)
+        
+        print(list_data_dict)
 
         logging.warning("Formatting inputs...")
         prompt_input, prompt_no_input = PROMPT_DICT["prompt_input"], PROMPT_DICT["prompt_no_input"]
@@ -180,14 +216,25 @@ def make_supervised_data_module(tokenizer: transformers.PreTrainedTokenizer, dat
 
 
 def train():
+    
+    print("I'm in the Training Loop!")
+    
+    jload("./data/code_alpaca_20k.json")
+
+
+    print("Parsing!")
     parser = transformers.HfArgumentParser((ModelArguments, DataArguments, TrainingArguments))
     model_args, data_args, training_args = parser.parse_args_into_dataclasses()
 
+    print("Setting up Pretrained Model!")
+
+    print(model_args.model_name_or_path)
     model = transformers.AutoModelForCausalLM.from_pretrained(
         model_args.model_name_or_path,
         cache_dir=training_args.cache_dir,
     )
 
+    print("Setting Tokenizer!")
     tokenizer = transformers.AutoTokenizer.from_pretrained(
         model_args.model_name_or_path,
         cache_dir=training_args.cache_dir,
@@ -195,27 +242,32 @@ def train():
         padding_side="right",
         use_fast=False,
     )
-    special_tokens_dict = dict()
+
+    print("Tokenizer Padding!")
     if tokenizer.pad_token is None:
-        special_tokens_dict["pad_token"] = DEFAULT_PAD_TOKEN
-    if tokenizer.eos_token is None:
-        special_tokens_dict["eos_token"] = DEFAULT_EOS_TOKEN
-    if tokenizer.bos_token is None:
-        special_tokens_dict["bos_token"] = DEFAULT_BOS_TOKEN
-    if tokenizer.unk_token is None:
-        special_tokens_dict["unk_token"] = DEFAULT_UNK_TOKEN
+        smart_tokenizer_and_embedding_resize(
+            special_tokens_dict=dict(pad_token=DEFAULT_PAD_TOKEN),
+            tokenizer=tokenizer,
+            model=model,
+        )
 
-    smart_tokenizer_and_embedding_resize(
-        special_tokens_dict=special_tokens_dict,
-        tokenizer=tokenizer,
-        model=model,
-    )
-
+    print("Checking if llama in Tokenizer!")
+    if "llama" in model_args.model_name_or_path:
+        tokenizer.add_special_tokens(
+            {
+                "eos_token": DEFAULT_EOS_TOKEN,
+                "bos_token": DEFAULT_BOS_TOKEN,
+                "unk_token": DEFAULT_UNK_TOKEN,
+            }
+        )
+    
+    print("Setting data_module")
     data_module = make_supervised_data_module(tokenizer=tokenizer, data_args=data_args)
+    print("Setting Trainer")
     trainer = Trainer(model=model, tokenizer=tokenizer, args=training_args, **data_module)
     trainer.train()
     trainer.save_state()
-    trainer.save_model(output_dir=training_args.output_dir)
+    safe_save_model_for_hf_trainer(trainer=trainer, output_dir=training_args.output_dir)
 
 
 if __name__ == "__main__":
