@@ -1,8 +1,7 @@
 ![pyAlpaca](https://user-images.githubusercontent.com/21077042/234803304-d01984eb-4cf0-4f1f-ae13-4ba285c09ce7.png)
 
 
-# Non-sped up Demo of pyAlpaca using llama.cpp Inference
-Demo running LLaMA-13B on an Intel i-13600K with 32GB RAM with llama.cpp
+## Non-sped up Demo of pyAlpaca-13B using llama.cpp Inference on an Intel i-13600K with 32GB RAM
 
 https://user-images.githubusercontent.com/21077042/234803452-2b5cb113-58d4-48d6-aad5-9c03f13b8d8b.mp4
 
