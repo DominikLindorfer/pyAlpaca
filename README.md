@@ -1,5 +1,9 @@
 ![pyAlpaca](https://user-images.githubusercontent.com/21077042/234803304-d01984eb-4cf0-4f1f-ae13-4ba285c09ce7.png)
 
+# pyAlpaca: Instruction-following LLaMA Model trained to output Python-Code from general instructions
+
+This project aims to build and share a low-resource instruction-following LLaMA model for python code generation and is based on [Stanford Alpaca](https://github.com/tatsu-lab/stanford_alpaca) as well as [Code Alpaca](https://github.com/tatsu-lab/stanford_alpaca) and [llama.cpp](https://github.com/tatsu-lab/stanford_alpaca). While the former projects aim towards a general purpose LLM, this project aims to build a code-assistant that specializes in generating code in a singular language - Python.
+
 ## Non-sped up Demo of pyAlpaca-13B using llama.cpp Inference on an Intel i-13600K with 32GB RAM
 
 **Prompt:** "Write a Python program that fits a spline curve into data."
@@ -13,15 +17,9 @@ https://user-images.githubusercontent.com/21077042/234803452-2b5cb113-58d4-48d6-
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 
-# pyAlpaca: Instruction-following LLaMA Model trained to output Python-Code from general instructions
+## Model Weights on HuggingFace Repo
 
-This project aims to build and share a low-resource instruction-following LLaMA model for python code generation and is based on [Stanford Alpaca](https://github.com/tatsu-lab/stanford_alpaca) as well as [Code Alpaca](https://github.com/tatsu-lab/stanford_alpaca) and [llama.cpp](https://github.com/tatsu-lab/stanford_alpaca). While the former projects aim towards a general purpose LLM, this project aims to build a code-assistant that specializes in generating code in a singular language - Python.
-
-A live demo of the model on my local pc is shown above.
-
-Models are shared on Huggingface Repos here.
-
-Low-Resource Approach using Deepspeed
+Models are shared on HuggingFace Repos here.
 
 ## Examples:
 
