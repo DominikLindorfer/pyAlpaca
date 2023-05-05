@@ -1,5 +1,5 @@
 
-torchrun --master_port=1234 qchem_7B.py \
+torchrun --master_port=1234 pyAlpaca_7B.py \
     --model_name_or_path ./cpt_HF/ll7b/ \
     --data_path "./data/pyinstructions.json" \
     --fp16 True \

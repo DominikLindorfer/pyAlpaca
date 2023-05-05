@@ -1,5 +1,5 @@
 
-torchrun qchem.py \
+torchrun pyAlpaca_13B.py \
     --model_name_or_path ./cpt_HF_13B/ \
     --data_path "./data/pyinstructions.json" \
     --fp16 True \
