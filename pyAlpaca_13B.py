@@ -262,7 +262,7 @@ def train():
     print("Setting Trainer")
     trainer = Trainer(model=model, tokenizer=tokenizer, args=training_args, **data_module)
     trainer.train()
-    trainer.save_model(output_dir="mymodel1")
+    trainer.save_model(output_dir="mymodel_13B")
     #trainer.save_state()
     #safe_save_model_for_hf_trainer(trainer=trainer, output_dir=training_args.output_dir)
 	#trainer.save_model(output_dir="mymodel1")
