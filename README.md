@@ -1,5 +1,7 @@
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/21077042/234803304-d01984eb-4cf0-4f1f-ae13-4ba285c09ce7.png" width="350">
+</p>
 
-<img src="https://user-images.githubusercontent.com/21077042/234803304-d01984eb-4cf0-4f1f-ae13-4ba285c09ce7.png" width="350">
 
 # pyAlpaca: Instruction-following LLaMA Model Trained to Output Python-Code from General Instructions
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/release/python-390/)
@@ -116,8 +118,6 @@ Models are shared on HuggingFace Repos here. (Uploading...)
     The main drawback of quantization is the loss of information. By reducing the amount of data, we are also reducing the amount of information that can be stored or processed. This can lead to reduced accuracy, especially in tasks such as image or speech recognition. Additionally, some models may not be able to handle the reduced data, and may require more data for training. Finally, there may be some cases where the reduced accuracy is not acceptable, and the full amount of data may be needed. 
 
 
-
-
 ## Training using Deepspeed
 
 pyAlpaca has been trained on **1(!) A100 40G GPU as well as 256GB RAM**, which is commonly found in older research clusters.
@@ -183,11 +183,11 @@ This JSON file is a list of dictionaries, each dictionary contains the following
 
 The pyAlpaca model is fine-tuned using HuggingFace's Trainer an the following parameters:
 
-Batch size: 128
-Learning rate: 2e-5
-Epochs: 3 (7B and 13B) and 5 (7B-5)
-Max length: 512
-Weight decay: 0
+* Batch size: 128
+* Learning rate: 2e-5
+* Epochs: 3 (7B and 13B) and 5 (7B-5)
+* Max length: 512
+* Weight decay: 0
 
 Below is the used command that fine-tunes LLaMA models with our dataset on a machine with 1 A100 40G GPU using deepspeed, as described above.
 Replace `<your_path_to_hf_converted_llama_ckpt_and_tokenizer>` with the path to your HuggingFace converted checkpoint and tokenizer and `<your_output_dir>` with the directory to store the output.
@@ -214,6 +214,14 @@ torchrun train.py \
     --deepspeed ds_config_stage3.json \
     --tf32 False
 ```
+
+### On-Going and Future Steps
+
+* pyAlpaca-30B Model
+* Training and Comparison of LoRA Approach
+* Comparison of LLaMA Adapter in 7B and 13B
+* Extending the Dataset using modified Leetcode-10K
+* Extending the Dataset using modified StackOverflow BigQuery-DS
 
 ### Citation
 
