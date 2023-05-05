@@ -1,6 +1,9 @@
-![pyAlpaca](https://user-images.githubusercontent.com/21077042/234803304-d01984eb-4cf0-4f1f-ae13-4ba285c09ce7.png)
 
-# pyAlpaca: Instruction-following LLaMA Model trained to output Python-Code from general instructions
+<img src="https://user-images.githubusercontent.com/21077042/234803304-d01984eb-4cf0-4f1f-ae13-4ba285c09ce7.png" width="350">
+
+# pyAlpaca: Instruction-following LLaMA Model Trained to Output Python-Code from General Instructions
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/release/python-390/)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 This project aims to build and share a low-resource instruction-following LLaMA model for python code generation and is based on [Stanford Alpaca](https://github.com/tatsu-lab/stanford_alpaca) as well as [Code Alpaca](https://github.com/tatsu-lab/stanford_alpaca) and [llama.cpp](https://github.com/tatsu-lab/stanford_alpaca). While the former projects aim towards a general purpose LLM, this project aims to build a code-assistant that specializes in generating code in a singular language - Python.
 
@@ -10,16 +13,10 @@ This project aims to build and share a low-resource instruction-following LLaMA 
 
 https://user-images.githubusercontent.com/21077042/234803452-2b5cb113-58d4-48d6-aad5-9c03f13b8d8b.mp4
 
-# Introduction
-
-[![Code License]()]()
-[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/release/python-390/)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-
 
 ## Model Weights on HuggingFace Repo
 
-Models are shared on HuggingFace Repos here.
+Models are shared on HuggingFace Repos here. (Uploading...)
 
 ## Examples:
 
@@ -124,7 +121,7 @@ Models are shared on HuggingFace Repos here.
 ## Training using Deepspeed
 
 pyAlpaca has been trained on **1(!) A100 40G GPU as well as 256GB RAM**, which is commonly found in older research clusters.
-The original Stanford Alpaca model has been trained on 8 A100 80G GPUs in FSDP `full_shard` mode - a configuration not available to many researchers, enthusiasts or me. Thus, this project relies heavily on Microsoft's Deepspeed library (Link) which not only reduces the GPU resources needed but can offload to RAM using the Deepspeed Stage 3 approach. Please check out their papers at [1,2,3 Referenz]. 
+The original Stanford Alpaca model has been trained on 8 A100 80G GPUs in FSDP `full_shard` mode - a configuration not available to many researchers, enthusiasts or me. Thus, this project relies heavily on ([Microsoft's Deepspeed Library](www.deepspeed.ai)) which not only reduces the GPU resources needed but can offload to RAM using the Deepspeed Stage 3 approach. Please check out their papers in Ref [2,3 & 4]. 
 
 The deepspeed configuration that was used is:
     
