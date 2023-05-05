@@ -230,7 +230,7 @@ Please cite the repo if you use the data or code in this repo.
 ```
 @misc{alpaca,
   author = {Dominik Lindorfer},
-  title = {pyAlpaca: },
+  title = {pyAlpaca: Instruction-following LLaMA Model Trained to Output Python-Code from General Instructions},
   year = {2023},
   publisher = {GitHub},
   journal = {GitHub repository},
