@@ -7,7 +7,7 @@
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/release/python-390/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-This project aims to build and share a low-resource instruction-following LLaMA model for python code generation and is based on [Stanford Alpaca](https://github.com/tatsu-lab/stanford_alpaca) as well as [Code Alpaca](https://github.com/tatsu-lab/stanford_alpaca) and [llama.cpp](https://github.com/tatsu-lab/stanford_alpaca). While the former projects aim towards a general purpose LLM, this project aims to build a code-assistant that specializes in generating code in a singular language - Python.
+This project aims to build and share a low-resource instruction-following LLaMA model for python code generation and is based on [Stanford Alpaca](https://github.com/tatsu-lab/stanford_alpaca) as well as [Code Alpaca](https://github.com/tatsu-lab/stanford_alpaca) and [llama.cpp](https://github.com/tatsu-lab/stanford_alpaca). While the former projects aim towards general purpose LLMs, this project aims to build a code-assistant that specializes in generating code in a singular language - Python.
 
 ## Non-sped up Demo of pyAlpaca-13B using llama.cpp Inference on an Intel i-13600K with 32GB RAM
 
