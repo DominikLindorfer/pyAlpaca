@@ -9,7 +9,7 @@
 
 This project aims to build and share a low-resource instruction-following LLaMA model for python code generation and is based on [Stanford Alpaca](https://github.com/tatsu-lab/stanford_alpaca) as well as [Code Alpaca](https://github.com/tatsu-lab/stanford_alpaca) and [llama.cpp](https://github.com/tatsu-lab/stanford_alpaca). While the former projects aim towards general purpose LLMs, this project aims to build a code-assistant that specializes in generating code in a singular language - Python.
 
-## Non-sped up Demo of pyAlpaca-13B using llama.cpp Inference on an Intel i-13600K with 32GB RAM
+## Non-sped up Demo of pyAlpaca-13B using [llama.cpp](https://github.com/ggerganov/llama.cpp) Inference on an Intel i-13600K with 32GB RAM
 
 **Prompt:** "Write a Python program that fits a spline curve into data."
 
