@@ -16,6 +16,13 @@ This project aims to build and share a low-resource instruction-following LLaMA 
 https://user-images.githubusercontent.com/21077042/234803452-2b5cb113-58d4-48d6-aad5-9c03f13b8d8b.mp4
 
 
+## Additional Simplistic Usage with [llama_cpp Python-Bindings]( https://github.com/abetlen/llama-cpp-python )
+
+    from llama_cpp import Llama
+    llm = Llama(model_path="./llama.cpp/models/ggml-model-f16.bin")
+    output = llm("### Instruction: Write a Python program to perform insertion sort on a list. ### Response:", max_tokens=256, stop=["Output"], echo=True)
+    print(output)
+
 ## Model Weights on HuggingFace Repo
 
 Models are shared on HuggingFace Repos here. (Uploading...)
@@ -217,6 +224,7 @@ torchrun train.py \
 
 ### On-Going and Future Steps
 
+* 8-Bit and 4-Bit Quantization
 * pyAlpaca-30B Model
 * Training and Comparison of LoRA Approach
 * Comparison of LLaMA Adapter in 7B and 13B
