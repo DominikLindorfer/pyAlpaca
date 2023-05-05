@@ -128,7 +128,7 @@ Models are shared on HuggingFace Repos here. (Uploading...)
 ## Training using Deepspeed
 
 pyAlpaca has been trained on **1(!) A100 40G GPU as well as 256GB RAM**, which is commonly found in older research clusters.
-The original Stanford Alpaca model has been trained on 8 A100 80G GPUs in FSDP `full_shard` mode - a configuration not available to many researchers, enthusiasts or me. Thus, this project relies heavily on ([Microsoft's Deepspeed Library](www.deepspeed.ai)) which not only reduces the GPU resources needed but can offload to RAM using the Deepspeed Stage 3 approach. Please check out their papers in Ref [2,3 & 4]. 
+The original Stanford Alpaca model has been trained on 8 A100 80G GPUs in FSDP `full_shard` mode - a configuration not available to many researchers, enthusiasts or me. Thus, this project relies heavily on [Microsoft's Deepspeed Library](www.deepspeed.ai) which not only reduces the GPU resources needed but can offload to RAM using the Deepspeed Stage 3 approach. Please check out their papers in Ref [2,3 & 4]. 
 
 The deepspeed configuration that was used is:
     
