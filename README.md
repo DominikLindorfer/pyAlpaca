@@ -24,6 +24,106 @@ Models are shared on Huggingface Repos here.
 
 Low-Resource Approach using Deepspeed
 
+## Examples:
+
+**Prompt:** "Write a Python program that fits a spline curve into data."
+
+**Output:**
+
+    import numpy as np
+    from scipy.optimize import curve_fit
+
+    def func(x, a, b, c):
+        return a*x**2 + b*x + c
+
+    x_data = np.array([1, 2, 3, 4, 5])
+    y_data = func(x_data, 2, 3, 5)
+
+    popt, pcov = curve_fit(func, x_data, y_data)
+
+    print("Best-fit parameters:", popt)
+    print("Parameter uncertainties:", pcov)
+
+**Prompt:** "Write a Python program using binary search."
+
+**Output:**
+
+    def binary_search(arr, target): 
+        left = 0
+        right = len(arr)-1
+
+        while left<=right: 
+
+            mid = (left+right)//2
+
+            # Check if the element is present at the middle itself 
+            if arr[mid] == target: 
+                return mid 
+
+            # If the element is smaller than mid, it can only  
+            # be present in left subarray 
+            elif arr[mid] > target: 
+                right = mid - 1 
+
+            # Else the element can only be present in right  
+            # subarray 
+            else: 
+                left = mid + 1
+        return -1
+
+
+**Prompt:** "Write a Python function to delete a number from an array."
+
+**Output:**
+
+    def delete_number(arr, num):
+        if num in arr:
+            arr.remove(num)
+        return arr
+
+    arr = [1, 2, 3, 4, 5]
+    num = 3
+
+    print(delete_number(arr, num)) # Output: [1, 2, 4, 5]
+
+
+**Prompt:** "Write a Python function to perform insertion sort on a list."
+
+**Output:**
+
+    def insertion_sort(list):
+        for i in range(1, len(list)):
+            key = list[i]
+            j = i-1
+            while j >= 0 and list[j] > key:
+                list[j+1] = list[j]
+                j -= 1
+            list[j+1] = key
+        return list
+
+**Prompt:** Describe quantization of datatypes in machine learning.
+
+**Output:**
+
+    ### Quantization of data
+
+    Quantization is the process of reducing the amount of data needed to represent a signal or image. It involves mapping the original data onto a lower-dimensional space while retaining the essential information. In machine learning, this can be used to reduce the amount of data needed for training, or to reduce the complexity of the model.
+
+    ### Quantization of datatypes
+
+    In machine learning, datatypes are often quantized to reduce the amount of data needed for training, or to reduce the complexity of the model. For example, images can be represented using fewer colors or less resolution, and audio can be represented using fewer frequencies or less time resolution. Additionally, integers can be represented using fewer bits, and floats can be represented using fewer decimal places.
+
+    ### Benefits of quantization
+
+    Quantization can reduce the amount of data needed for training, making it easier to store and process data. Additionally, it can reduce the complexity of models, making them faster and more efficient. Finally, it can also reduce the amount of computation needed, making it easier to deploy models on limited hardware systems. 
+
+    ### Drawbacks of quantization
+
+    The main drawback of quantization is the loss of information. By reducing the amount of data, we are also reducing the amount of information that can be stored or processed. This can lead to reduced accuracy, especially in tasks such as image or speech recognition. Additionally, some models may not be able to handle the reduced data, and may require more data for training. Finally, there may be some cases where the reduced accuracy is not acceptable, and the full amount of data may be needed. 
+
+
+
+
 ## Training using Deepspeed
 
 pyAlpaca has been trained on **1(!) A100 40G GPU as well as 256GB RAM**, which is commonly found in older research clusters.
